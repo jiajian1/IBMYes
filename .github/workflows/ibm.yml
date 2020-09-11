@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
   schedule:
-    - cron: ' 0 12 * * FRI'
+    - cron: '0 12 * * FRI'
 
 jobs:
   ibm-cloud-restart:
@@ -26,7 +26,7 @@ jobs:
         $IBM_ACCOUNT
         $REGION_NUM
         no
-        EOF 
+        EOF
     - name: Target IBM Cloud
       env:
         RESOURSE_ID: ${{ secrets.RESOURSE_ID }}
@@ -35,9 +35,7 @@ jobs:
         ./IBM_Cloud_CLI/ibmcloud target --cf
         ./IBM_Cloud_CLI/ibmcloud cf install -v 6.51.0
     - name: Restart IBM Cloud
-      env: |
+      env:
         IBM_APP_NAME: ${{ secrets.IBM_APP_NAME }}
-      run:
+      run: |
         ./IBM_Cloud_CLI/ibmcloud cf restart "$IBM_APP_NAME"
-        
-      
